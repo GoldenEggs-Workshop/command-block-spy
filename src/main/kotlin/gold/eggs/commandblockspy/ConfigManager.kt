@@ -21,6 +21,21 @@ object ConfigManager {
         backendMonitorEnabled = config.getBoolean("backend-monitor-enabled", false)
         interceptRepeatingAuto = config.getBoolean("intercept-repeating-auto", false)
         banCommandMinecart = config.getBoolean("ban-command-minecart", false)
+        regexInterceptEnabled = config.getBoolean("regex-intercept-enabled", false)
+        regexBlockList.clear()
+
+        // 加载正则拦截列表
+        val list = config.getMapList("regex-block-list")
+        for (entry in list) {
+            val pattern = entry["pattern"]?.toString() ?: continue
+            val message = entry["message"]?.toString() ?: continue
+            try {
+                val regex = Regex(pattern)
+                regexBlockList[regex] = message
+            } catch (e: Exception) {
+                println("Invalid regex in config: $pattern")
+            }
+        }
     }
 
     /**
@@ -32,6 +47,7 @@ object ConfigManager {
         config.set("backend-monitor-enabled", backendMonitorEnabled)
         config.set("intercept-repeating-auto", interceptRepeatingAuto)
         config.set("ban-command-minecart", banCommandMinecart)
+        config.set("regex-intercept-enabled", regexInterceptEnabled)
         plugin.saveConfig()
     }
 

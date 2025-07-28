@@ -39,7 +39,7 @@ class CbSpyListener : Listener {
                         .append(
                             Component.text("§a${info.worldName}§f, §a${info.x}§f, §a${info.y}§f, §a${info.z}")
                                 .clickEvent(ClickEvent.runCommand("/tp @s ${info.x} ${info.y} ${info.z}"))
-                                .hoverEvent(HoverEvent.showText(Component.text("点击传送到命令方块")))
+                                .hoverEvent(HoverEvent.showText(Component.text("点击传送到该命令方块")))
                         )
                         .append(Component.text(" §f| §7${info.command}"))
                 )
@@ -51,7 +51,7 @@ class CbSpyListener : Listener {
     fun commandBlockInterceptor(event: ServerCommandEvent) {
 
         // 如果配置中禁止命令方块矿车，并且发送者是命令方块矿车，则拦截并移除
-        if(ConfigManager.banCommandMinecart && event.sender is CommandMinecart) {
+        if (ConfigManager.banCommandMinecart && event.sender is CommandMinecart) {
             val sender = event.sender as Entity
             event.isCancelled = true
             sender.remove()
@@ -67,15 +67,43 @@ class CbSpyListener : Listener {
             if (info.commandBlock.auto == true) {
                 info.commandBlock.auto = false
                 event.isCancelled = true
-                event.sender.server.sendMessage(
-                    Component.text("§e[CBSpy] §c已拦截保持开启循环命令方块: ")
-                        .append(
-                            Component.text("§a${info.worldName}, ${info.x}, ${info.y}, ${info.z}")
-                                .clickEvent(ClickEvent.runCommand("/tp @s ${info.x} ${info.y} ${info.z}"))
-                                .hoverEvent(HoverEvent.showText(Component.text("点击传送到命令方块")))
-                        )
-                )
+
+                for (player in Bukkit.getOnlinePlayers()) {
+                    player.sendMessage(
+                        Component.text("§e[CBSpy] §c已拦截循环保持开启命令方块 ")
+                            .append(
+                                Component.text("§a${info.worldName}, ${info.x}, ${info.y}, ${info.z}")
+                                    .clickEvent(ClickEvent.runCommand("/tp @s ${info.x} ${info.y} ${info.z}"))
+                                    .hoverEvent(HoverEvent.showText(Component.text("点击传送到该命令方块")))
+                            )
+                    )
+                }
+
                 MainPlugin.instance.logger.info("[拦截] 循环命令方块 | ${info.worldName},${info.x},${info.y},${info.z} | ${info.command}")
+                return
+            }
+        }
+
+        // 如果配置中启用了正则拦截，并且命令匹配正则，则拦截并发送消息
+        if (ConfigManager.regexInterceptEnabled) {
+            for ((regex, reason) in ConfigManager.regexBlockList) {
+                if (regex.containsMatchIn(info.command)) {
+                    // 拦截指令执行
+                    event.isCancelled = true
+
+                    for (player in Bukkit.getOnlinePlayers()) {
+                        player.sendMessage(
+                            Component.text("§e[CBSpy] §c已拦截命令方块: §6$reason ")
+                                .append(
+                                    Component.text("§a${info.worldName}, ${info.x}, ${info.y}, ${info.z}")
+                                        .clickEvent(ClickEvent.runCommand("/tp @s ${info.x} ${info.y} ${info.z}"))
+                                        .hoverEvent(HoverEvent.showText(Component.text("点击传送到该命令方块")))
+                                )
+                        )
+                    }
+                    MainPlugin.instance.logger.info("[拦截] 正则表达式 | $reason | ${info.worldName},${info.x},${info.y},${info.z} | ${info.command}")
+                    break
+                }
             }
         }
     }

@@ -8,11 +8,10 @@ intercept-repeating-auto: false
 ban-command-minecart: false
 
 # 是否启用基于正则表达式的命令拦截功能，拦截匹配规则的指令并提示原因
-command-block-regex-intercept: false
+regex-intercept-enabled: false
 
 # 正则表达式拦截列表，格式：正则表达式: 拦截提示信息
 # 支持常见正则表达式语法，例如：
 regex-block-list:
-  "^/op.*": "禁止使用 /op 命令！"          # 拦截以 /op 开头的命令
-  "^/stop$": "禁止使用 /stop 服务器命令！" # 拦截完全等于 /stop 的命令
-  "^/reload$": "禁止使用 /reload 命令！"    # 拦截完全等于 /reload 的命令
+  - pattern: ^say
+    message: 禁止使用 say 命令！
