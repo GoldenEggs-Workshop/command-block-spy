@@ -4,6 +4,8 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.event.HoverEvent
 import org.bukkit.Bukkit
+import org.bukkit.command.BlockCommandSender
+import org.bukkit.entity.Entity
 import org.bukkit.entity.minecart.CommandMinecart
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -47,7 +49,20 @@ class CbSpyListener : Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     fun commandBlockInterceptor(event: ServerCommandEvent) {
+
+        // 如果配置中禁止命令方块矿车，并且发送者是命令方块矿车，则拦截并移除
+        if(ConfigManager.banCommandMinecart && event.sender is CommandMinecart) {
+            val sender = event.sender as Entity
+            event.isCancelled = true
+            sender.remove()
+            MainPlugin.instance.logger.info("[拦截] 命令方块矿车 | ${sender.location.world},${sender.location.blockX},${sender.location.blockY},${sender.location.blockZ}")
+            return
+        }
+
+        // 提取命令方块信息，如果无法提取则返回
         val info = extractCommandBlockInfo(event) ?: return
+
+        // 如果配置中拦截重复命令方块，并且命令方块是循环类型，则拦截并关闭
         if (ConfigManager.interceptRepeatingAuto && info.type == "循环") {
             if (info.commandBlock.auto == true) {
                 info.commandBlock.auto = false
@@ -67,8 +82,8 @@ class CbSpyListener : Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     fun onMinecartCreate(event: VehicleCreateEvent) {
+        // 如果配置中禁止命令方块矿车，则拦截并发送消息
         if (!ConfigManager.banCommandMinecart) return
-
         val entity = event.vehicle
         if (entity is CommandMinecart) {
             event.isCancelled = true

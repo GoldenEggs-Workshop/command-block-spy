@@ -8,6 +8,8 @@ object ConfigManager {
     var backendMonitorEnabled: Boolean = false
     var interceptRepeatingAuto = false
     var banCommandMinecart = false
+    var regexInterceptEnabled = false
+    val regexBlockList = mutableMapOf<Regex, String>()
 
     // 玩家个人监控状态（仅内存，重启失效）
     private val monitoringPlayers = mutableSetOf<UUID>()
