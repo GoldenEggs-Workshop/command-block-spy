@@ -29,7 +29,9 @@ class MainPlugin : JavaPlugin(), Listener {
         server.pluginManager.registerEvents(CbSpyListener(), this)
 
         // 注册命令
-        getCommand("cbspy")?.setExecutor(MonitorCommand())
+        val command = getCommand("cbspy")
+        command?.setExecutor(MonitorCommand())
+        command?.tabCompleter = MonitorTabCompleter()
 
         // 其他初始化逻辑
     }

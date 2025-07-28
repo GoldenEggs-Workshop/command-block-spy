@@ -11,3 +11,5 @@ commands:
 permissions:
   cbspy.use:
     default: true
+  cbspy.reload:
+    default: true
