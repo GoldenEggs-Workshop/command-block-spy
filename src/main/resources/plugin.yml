@@ -1,6 +1,6 @@
 name: CBS
 main: gold.eggs.commandblockspy.MainPlugin
-version: 1.0
+version: v1.0.0-SNAPSHOT-1
 api-version: 1.21
 commands:
   cbspy:
