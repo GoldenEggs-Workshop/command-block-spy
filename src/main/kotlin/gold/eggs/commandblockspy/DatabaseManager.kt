@@ -4,7 +4,6 @@ import org.bukkit.Location
 import java.io.File
 import java.sql.Connection
 import java.sql.DriverManager
-import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

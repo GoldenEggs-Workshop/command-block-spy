@@ -35,6 +35,7 @@ object ConfigManager {
                 regexBlockList[regex] = message
             } catch (e: Exception) {
                 println("Invalid regex in config: $pattern")
+                println("Error: ${e.message}")
             }
         }
     }

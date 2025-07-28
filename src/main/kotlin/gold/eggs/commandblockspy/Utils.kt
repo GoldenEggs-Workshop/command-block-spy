@@ -5,8 +5,6 @@ import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.command.BlockCommandSender
 import org.bukkit.event.server.ServerCommandEvent
-import java.text.SimpleDateFormat
-import java.util.Date
 
 private fun BlockCommandSender.getCommandBlockEntity(): Any? {
     return try {

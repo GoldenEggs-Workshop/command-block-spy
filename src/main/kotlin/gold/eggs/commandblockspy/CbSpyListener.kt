@@ -4,7 +4,6 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.event.HoverEvent
 import org.bukkit.Bukkit
-import org.bukkit.command.BlockCommandSender
 import org.bukkit.entity.Entity
 import org.bukkit.entity.minecart.CommandMinecart
 import org.bukkit.event.EventHandler
