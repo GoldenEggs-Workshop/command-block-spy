@@ -1,2 +1,3 @@
 backend-monitor-enabled: false
 intercept-repeating-auto: false
+ban-command-minecart: false

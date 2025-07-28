@@ -4,13 +4,15 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.event.HoverEvent
 import org.bukkit.Bukkit
+import org.bukkit.entity.minecart.CommandMinecart
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.server.ServerCommandEvent
+import org.bukkit.event.vehicle.VehicleCreateEvent
 
 
-class CommandBlockListener : Listener {
+class CbSpyListener : Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun commandBlockMonitor(event: ServerCommandEvent) {
@@ -33,7 +35,7 @@ class CommandBlockListener : Listener {
                 player.sendMessage(
                     Component.text("§e[CBSpy] §6${info.type} §f| ")
                         .append(
-                            Component.text("§a${info.worldName}§f,§a${info.x}§f,§a${info.y}§f,§a${info.z}")
+                            Component.text("§a${info.worldName}§f, §a${info.x}§f, §a${info.y}§f, §a${info.z}")
                                 .clickEvent(ClickEvent.runCommand("/tp @s ${info.x} ${info.y} ${info.z}"))
                                 .hoverEvent(HoverEvent.showText(Component.text("点击传送到命令方块")))
                         )
@@ -51,15 +53,27 @@ class CommandBlockListener : Listener {
                 info.commandBlock.auto = false
                 event.isCancelled = true
                 event.sender.server.sendMessage(
-                    Component.text("§e[CBSpy] §c已拦截 ")
+                    Component.text("§e[CBSpy] §c已拦截保持开启循环命令方块: ")
                         .append(
-                            Component.text("§a${info.worldName}§f,§a${info.x}§f,§a${info.y}§f,§a${info.z}")
+                            Component.text("§a${info.worldName}, ${info.x}, ${info.y}, ${info.z}")
                                 .clickEvent(ClickEvent.runCommand("/tp @s ${info.x} ${info.y} ${info.z}"))
                                 .hoverEvent(HoverEvent.showText(Component.text("点击传送到命令方块")))
                         )
-                        .append(Component.text(" §c保持开启循环命令方块"))
                 )
+                MainPlugin.instance.logger.info("[拦截] 循环命令方块 | ${info.worldName},${info.x},${info.y},${info.z} | ${info.command}")
             }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    fun onMinecartCreate(event: VehicleCreateEvent) {
+        if (!ConfigManager.banCommandMinecart) return
+
+        val entity = event.vehicle
+        if (entity is CommandMinecart) {
+            event.isCancelled = true
+            Bukkit.broadcast(Component.text("§e[CBSpy] §c已拦截命令方块矿车: §a${entity.location.world.name}, ${entity.location.blockX}, ${entity.location.blockY}, ${entity.location.blockZ}"))
+            MainPlugin.instance.logger.info("[拦截] 命令方块矿车 | ${entity.location.world},${entity.location.blockX},${entity.location.blockY},${entity.location.blockZ}")
         }
     }
 }

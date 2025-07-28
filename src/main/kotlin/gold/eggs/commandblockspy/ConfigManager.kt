@@ -5,8 +5,9 @@ import java.util.*
 
 object ConfigManager {
     // 配置项：控制后台日志输出
-    var backendMonitorEnabled: Boolean = true
-    var interceptRepeatingAuto = true
+    var backendMonitorEnabled: Boolean = false
+    var interceptRepeatingAuto = false
+    var banCommandMinecart = false
 
     // 玩家个人监控状态（仅内存，重启失效）
     private val monitoringPlayers = mutableSetOf<UUID>()
@@ -17,16 +18,18 @@ object ConfigManager {
     fun load(config: FileConfiguration) {
         backendMonitorEnabled = config.getBoolean("backend-monitor-enabled", false)
         interceptRepeatingAuto = config.getBoolean("intercept-repeating-auto", false)
+        banCommandMinecart = config.getBoolean("ban-command-minecart", false)
     }
 
     /**
-     * 保存配置（目前仅保存 backend-monitor-enabled）
+     * 保存配置
      */
     fun save() {
         val plugin = MainPlugin.instance
         val config = plugin.config
         config.set("backend-monitor-enabled", backendMonitorEnabled)
         config.set("intercept-repeating-auto", interceptRepeatingAuto)
+        config.set("ban-command-minecart", banCommandMinecart)
         plugin.saveConfig()
     }
 

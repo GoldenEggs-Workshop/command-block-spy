@@ -1,15 +1,7 @@
 package gold.eggs.commandblockspy
 
-import net.kyori.adventure.text.Component
-import org.bukkit.Material
-import org.bukkit.command.BlockCommandSender
-import org.bukkit.event.EventHandler
-import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
-import org.bukkit.event.server.ServerCommandEvent
 import org.bukkit.plugin.java.JavaPlugin
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class MainPlugin : JavaPlugin(), Listener {
@@ -26,13 +18,15 @@ class MainPlugin : JavaPlugin(), Listener {
 
         // 初始化配置文件
         saveDefaultConfig()
+        config.options().copyDefaults(true)
+        saveConfig()
         ConfigManager.load(config)
 
         // 初始化数据库（可选）
 //        DatabaseManager.init()
 
         // 注册监听器
-        server.pluginManager.registerEvents(CommandBlockListener(), this)
+        server.pluginManager.registerEvents(CbSpyListener(), this)
 
         // 注册命令
         getCommand("cbspy")?.setExecutor(MonitorCommand())
