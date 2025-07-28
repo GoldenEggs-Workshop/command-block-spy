@@ -1,4 +1,13 @@
 name: CBS
-main: gold.eggs.Main
+main: gold.eggs.commandblockspy.MainPlugin
 version: 1.0
 api-version: 1.21
+commands:
+  cbspy:
+    aliases: [cbs]
+    description: 切换命令方块监控功能
+    usage: /cbspy
+    permission: cbspy.use
+permissions:
+  cbspy.use:
+    default: true
