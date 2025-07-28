@@ -72,7 +72,9 @@ class CbSpyListener : Listener {
         val entity = event.vehicle
         if (entity is CommandMinecart) {
             event.isCancelled = true
-            Bukkit.broadcast(Component.text("§e[CBSpy] §c已拦截命令方块矿车: §a${entity.location.world.name}, ${entity.location.blockX}, ${entity.location.blockY}, ${entity.location.blockZ}"))
+            for (player in Bukkit.getOnlinePlayers()) {
+                player.sendMessage(Component.text("§e[CBSpy] §c已拦截命令方块矿车: §a${entity.location.world.name}, ${entity.location.blockX}, ${entity.location.blockY}, ${entity.location.blockZ}"))
+            }
             MainPlugin.instance.logger.info("[拦截] 命令方块矿车 | ${entity.location.world},${entity.location.blockX},${entity.location.blockY},${entity.location.blockZ}")
         }
     }
