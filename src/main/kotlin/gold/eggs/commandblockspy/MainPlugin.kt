@@ -1,10 +1,9 @@
 package gold.eggs.commandblockspy
 
-import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 
 
-class MainPlugin : JavaPlugin(), Listener {
+class MainPlugin : JavaPlugin() {
     companion object {
         lateinit var instance: MainPlugin
             private set
