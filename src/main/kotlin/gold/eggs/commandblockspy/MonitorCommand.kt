@@ -1,5 +1,8 @@
 package gold.eggs.commandblockspy
 
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.event.ClickEvent
+import net.kyori.adventure.text.event.HoverEvent
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.command.Command
@@ -59,56 +62,66 @@ class MonitorCommand : CommandExecutor {
                 return true
             }
 
-            // /cbs query recent <条数>
-            if (args.size >= 2 && args[0].equals("query", ignoreCase = true) && args[1].equals(
-                    "recent",
-                    ignoreCase = true
-                )
-            ) {
-                if (!sender.hasPermission("cbspy.query")) {
-                    sender.sendMessage("§c你没有权限执行此查询。")
+            if(ConfigManager.databaseLoggingEnabled){
+                // /cbs query recent <条数>
+                if (args.size >= 2 && args[0].equals("query", ignoreCase = true) && args[1].equals(
+                        "recent",
+                        ignoreCase = true
+                    )
+                ) {
+                    if (!sender.hasPermission("cbspy.query")) {
+                        sender.sendMessage("§c你没有权限执行此查询。")
+                        return true
+                    }
+
+                    val limit = args.getOrNull(2)?.toIntOrNull() ?: 5
+                    val results = DatabaseManager.queryRecentExecutions(limit)
+
+                    sender.sendMessage("§e[CBSpy] §a最近执行的命令（$limit 条）：")
+                    for ((i, row) in results.withIndex()) {
+                        sender.sendMessage(
+                            Component.text("§7${i + 1}. §f${row.command} ")
+                                .append(
+                                    Component.text("§7@ (${row.x},${row.y},${row.z})")
+                                        .clickEvent(ClickEvent.runCommand("/tp @s ${row.x} ${row.y} ${row.z}"))
+                                        .hoverEvent(HoverEvent.showText(Component.text("点击传送到该命令方块")))
+                                )
+                                .append(Component.text(" §8${row.lastExecution}"))
+                        )
+                    }
                     return true
                 }
 
-                val limit = args.getOrNull(2)?.toIntOrNull() ?: 5
-                val results = DatabaseManager.queryRecentExecutions(limit)
+                // /cbs query loc <x> <y> <z>
+                if (args.size == 5 && args[0].equals("query", ignoreCase = true) && args[1].equals(
+                        "loc",
+                        ignoreCase = true
+                    )
+                ) {
+                    if (!sender.hasPermission("cbspy.query")) {
+                        sender.sendMessage("§c你没有权限执行此查询。")
+                        return true
+                    }
 
-                sender.sendMessage("§e[CBSpy] §a最近执行的命令（$limit 条）：")
-                for ((i, row) in results.withIndex()) {
-                    sender.sendMessage("§7${i + 1}. §f${row.command} §7@ (${row.x},${row.y},${row.z}) §8${row.lastExecution}")
-                }
-                return true
-            }
+                    val x = parseIntArg(args[2], "X", sender) ?: return true
+                    val y = parseIntArg(args[3], "Y", sender) ?: return true
+                    val z = parseIntArg(args[4], "Z", sender) ?: return true
 
-            // /cbs query loc <x> <y> <z>
-            if (args.size == 5 && args[0].equals("query", ignoreCase = true) && args[1].equals(
-                    "loc",
-                    ignoreCase = true
-                )
-            ) {
-                if (!sender.hasPermission("cbspy.query")) {
-                    sender.sendMessage("§c你没有权限执行此查询。")
+                    val world = Bukkit.getWorld("world")
+                    val loc = Location(world, x.toDouble(), y.toDouble(), z.toDouble())
+
+                    val record = DatabaseManager.queryByLocation(loc)
+                    if (record != null) {
+                        sender.sendMessage("§e[CBSpy] §a该位置记录：")
+                        sender.sendMessage("§7命令：§f${record.command}")
+                        sender.sendMessage("§7执行次数：§f${record.executionCount}")
+                        sender.sendMessage("§7最后执行时间：§f${record.lastExecution}")
+                    } else {
+                        sender.sendMessage("§e[CBSpy] §c没有找到该位置的记录。")
+                    }
+
                     return true
                 }
-
-                val x = parseIntArg(args[2], "X", sender) ?: return true
-                val y = parseIntArg(args[3], "Y", sender) ?: return true
-                val z = parseIntArg(args[4], "Z", sender) ?: return true
-
-                val world = Bukkit.getWorld("world")
-                val loc = Location(world, x.toDouble(), y.toDouble(), z.toDouble())
-
-                val record = DatabaseManager.queryByLocation(loc)
-                if (record != null) {
-                    sender.sendMessage("§e[CBSpy] §a该位置记录：")
-                    sender.sendMessage("§7命令：§f${record.command}")
-                    sender.sendMessage("§7执行次数：§f${record.executionCount}")
-                    sender.sendMessage("§7最后执行时间：§f${record.lastExecution}")
-                } else {
-                    sender.sendMessage("§e[CBSpy] §c没有找到该位置的记录。")
-                }
-
-                return true
             }
 
             // 处理未知子命令
