@@ -13,3 +13,5 @@ permissions:
     default: true
   cbspy.reload:
     default: true
+  cbspy.query:
+    default: true

@@ -22,8 +22,8 @@ class MainPlugin : JavaPlugin(), Listener {
         saveConfig()
         ConfigManager.load(config)
 
-        // 初始化数据库（可选）
-//        DatabaseManager.init()
+        // 初始化数据库
+        DatabaseManager.init()
 
         // 注册监听器
         server.pluginManager.registerEvents(CbSpyListener(), this)
@@ -33,12 +33,11 @@ class MainPlugin : JavaPlugin(), Listener {
         command?.setExecutor(MonitorCommand())
         command?.tabCompleter = MonitorTabCompleter()
 
-        // 其他初始化逻辑
     }
 
     override fun onDisable() {
         // 插件关闭前清理
-//        DatabaseManager.close()
+        DatabaseManager.close()
         logger.info("插件已关闭")
     }
 }

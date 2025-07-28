@@ -4,7 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration
 import java.util.*
 
 object ConfigManager {
-    // 配置项：控制后台日志输出
+    var databaseLoggingEnabled: Boolean = false
     var backendMonitorEnabled: Boolean = false
     var interceptRepeatingAuto = false
     var banCommandMinecart = false
@@ -18,6 +18,7 @@ object ConfigManager {
      * 从 config.yml 加载配置
      */
     fun load(config: FileConfiguration) {
+        databaseLoggingEnabled = config.getBoolean("database-logging-enabled", false)
         backendMonitorEnabled = config.getBoolean("backend-monitor-enabled", false)
         interceptRepeatingAuto = config.getBoolean("intercept-repeating-auto", false)
         banCommandMinecart = config.getBoolean("ban-command-minecart", false)
@@ -44,6 +45,7 @@ object ConfigManager {
     fun save() {
         val plugin = MainPlugin.instance
         val config = plugin.config
+        config.set("database-logging-enabled", databaseLoggingEnabled)
         config.set("backend-monitor-enabled", backendMonitorEnabled)
         config.set("intercept-repeating-auto", interceptRepeatingAuto)
         config.set("ban-command-minecart", banCommandMinecart)

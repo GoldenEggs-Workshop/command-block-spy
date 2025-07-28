@@ -56,8 +56,7 @@ data class CommandBlockInfo(
     val x: Int,
     val y: Int,
     val z: Int,
-    val worldName: String,
-    val timestamp: String
+    val worldName: String
 )
 
 fun extractCommandBlockInfo(event: ServerCommandEvent): CommandBlockInfo? {
@@ -78,10 +77,8 @@ fun extractCommandBlockInfo(event: ServerCommandEvent): CommandBlockInfo? {
     val z = loc.blockZ
     val worldName = loc.world?.name ?: "未知世界"
 
-    val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-
     return CommandBlockInfo(
         commandBlock, command, block, loc,
-        type, x, y, z, worldName, timestamp
+        type, x, y, z, worldName
     )
 }

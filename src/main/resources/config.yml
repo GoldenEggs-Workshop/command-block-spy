@@ -1,3 +1,8 @@
+# CBS插件配置文件
+
+# 是否启用数据库功能
+database-logging-enabled: false
+
 # 是否开启后台命令执行日志监控，开启后控制台会打印命令方块执行记录
 backend-monitor-enabled: false
 

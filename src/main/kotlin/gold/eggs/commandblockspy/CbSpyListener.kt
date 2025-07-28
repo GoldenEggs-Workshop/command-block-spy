@@ -20,11 +20,12 @@ class CbSpyListener : Listener {
     fun commandBlockMonitor(event: ServerCommandEvent) {
         val info = extractCommandBlockInfo(event) ?: return
 
-        DatabaseManager.recordCommandExecution(
-            info.command,
-            info.location,
-            info.timestamp
-        )
+        if (!event.isCancelled && ConfigManager.databaseLoggingEnabled) {
+            DatabaseManager.recordCommandExecution(
+                info.command,
+                info.location
+            )
+        }
 
         // 如果启用了后台监控，则输出日志
         if (ConfigManager.backendMonitorEnabled) {
