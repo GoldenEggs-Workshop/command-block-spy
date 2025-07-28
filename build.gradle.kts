@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "gold.eggs"
-version = "1.0-SNAPSHOT"
+version = "v1.0.0-SNAPSHOT-1"
 
 repositories {
     mavenCentral()

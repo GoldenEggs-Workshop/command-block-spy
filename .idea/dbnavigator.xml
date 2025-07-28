@@ -39,6 +39,9 @@
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="f4b7758e-e86a-407b-b273-39e5512bd73b" dataset="main.command_executions" active-filter-id="EMPTY_FILTER" />
   </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
