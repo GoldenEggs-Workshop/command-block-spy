@@ -1,4 +1,7 @@
 # 🧱 CommandBlockSpy
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Command Block Spy on Modrinth](https://img.shields.io/badge/Modrinth-Command%20Block%20Spy-brightgreen?logo=modrinth&logoColor=white)](https://modrinth.com/plugin/command-block-spy)
+[![GitHub - command-block-spy](https://img.shields.io/badge/GitHub-Repository-0969da?logo=github&logoColor=white)](https://github.com/GoldenEggs-Workshop/command-block-spy)
 
 一个专为管理员设计的命令方块监控与控制插件，支持聊天提醒、数据库记录、指令拦截、权限控制与配置项开关。
 
