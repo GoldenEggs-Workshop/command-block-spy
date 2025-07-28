@@ -1,40 +1,24 @@
-# 🧱 CommandBlockSpy
+# 🕵️‍♂️ CommandBlockSpy
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Command Block Spy on Modrinth](https://img.shields.io/badge/Modrinth-Command%20Block%20Spy-brightgreen?logo=modrinth&logoColor=white)](https://modrinth.com/plugin/command-block-spy)
 [![GitHub - command-block-spy](https://img.shields.io/badge/GitHub-Repository-0969da?logo=github&logoColor=white)](https://github.com/GoldenEggs-Workshop/command-block-spy)
 
-一个专为管理员设计的命令方块监控与控制插件，支持聊天提醒、数据库记录、指令拦截、权限控制与配置项开关。
+📌 创必查(CBS) 是一个专为较高自由度的创造服（开放命令方块）设计的插件，为便于管理，记录命令方块的执行情况，并提供命令控制与安全监控功能。
 
 ✅ 兼容 Minecraft 1.21.4，基于 Paper 构建。
 
 ## ✨ 插件特性
 
-### ✅ 1. 命令方块执行监控（数据库记录）
+📝 **基于SQLite的执行记录** 自动将每个命令方块的执行次数、命令内容、最后执行时间和坐标保存至数据库
 
-- 自动记录命令方块每次执行的：
-    - 执行次数
-    - 最后执行时间
-    - 所在坐标
-    - 所执行命令内容
-- 可通过指令查询历史记录
+🔔 **实时提醒** 后台及玩家可自由开关的实时命令监控系统
 
-### ✅ 2. 实时聊天提醒
+🚫 **危险命令拦截** 可自定义正则规则拦截命令，并在触发时提示拦截原因
 
-- 玩家和后台都可以通过命令开启或关闭是否接收命令方块的实时修改提示
-- 支持权限控制
+🔁 **循环命令方块拦截** 可配置是否拦截保持开启的循环命令方块
 
-### ✅ 3. 正则表达式拦截指令（可配置）
-
-- 在 `config.yml` 中配置拦截规则（支持正则）
-- 可设置拦截提示消息
-
-### ✅ 4. 拦截保持开启循环命令方块（可开关）
-
-### ✅ 5. 禁用命令方块矿车（可开关）
-
-### 🚫 6. 命令方块矿车功能支持（暂未实现）
-
-- 后续将添加对命令方块矿车的监控、拦截与记录功能
+⚠️ **禁用命令方块矿车** 可配置是否禁用命令方块矿车
 
 ## 🧪 指令一览
 
@@ -72,6 +56,16 @@ regex-block-list:
     message: 禁止使用 say 命令！
 ```
 
+## 🚀 快速安装
+
+1. **下载插件**：
+    - [Modrinth下载](https://modrinth.com/plugin/command-block-spy/versions)
+    - [GitHub Releases](https://github.com/GoldenEggs-Workshop/command-block-spy/releases)
+
+2. **安装到服务器**：
+    - 将JAR文件放入`plugins/`文件夹
+    - 重启服务器
+
 ## 📦 构建 & 安装
 
 1. 克隆项目到本地：
@@ -89,7 +83,7 @@ regex-block-list:
 
 3. 将 `build/libs/commandblockspy-xxx.jar` 拷贝至服务器 `plugins/` 文件夹，重启服务器。
 
-## 🔐 权限列表
+## 🔐 权限节点
 
 | 权限节点           | 功能描述     |
 |----------------|----------|
@@ -101,7 +95,9 @@ regex-block-list:
 
 * [ ] 支持命令方块矿车的完整功能（记录/拦截/禁用）
 * [ ] 自定义数据库配置
-* [ ] 联动飞书机器人API报警
+* [ ] 多平台通知集成（飞书/钉钉/Discord）
+* [ ] 可视化查询界面
+* [ ] i18n支持
 
 ## 📄 许可证
 
