@@ -34,12 +34,12 @@ Optionally prevents players from placing command block minecarts.
 
 ## 🧪 Available Commands
 
-| Command                      | Description                                       | Permission     |
-|------------------------------|---------------------------------------------------|----------------|
-| `/cbs`                       | Toggle chat monitoring prompts                    | `cbspy.use`    |
-| `/cbs reload`                | Reload plugin configuration                       | `cbspy.reload` |
-| `/cbs query loc <x> <y> <z>` | Query execution history of a specific location    | `cbspy.query`  |
-| `/cbs query recent <count>`  | Query the most recent `<count>` execution records | `cbspy.query`  |
+| Command                        | Description                                       | Permission     |
+|--------------------------------|---------------------------------------------------|----------------|
+| `/cbspy`                       | Toggle chat monitoring prompts                    | `cbspy.use`    |
+| `/cbspy reload`                | Reload plugin configuration                       | `cbspy.reload` |
+| `/cbspy query loc <x> <y> <z>` | Query execution history of a specific location    | `cbspy.query`  |
+| `/cbspy query recent <count>`  | Query the most recent `<count>` execution records | `cbspy.query`  |
 
 ---
 
