@@ -1,0 +1,46 @@
+plugin.started = 插件启动
+plugin.disabled = 插件停止
+
+prefix.cbspy.player = &e[CBSpy] {msg}
+prefix.cbspy.console = [CBSpy] {msg}
+
+location = &a{world}&f, &a{x}&f, &a{y}&f, &a{z}
+
+command.no_permission = &c你没有权限使用此命令
+command.cbspy.on.player = &a你已开启命令方块监控显示
+command.cbspy.off.player = &c你已关闭命令方块监控显示
+command.cbspy.on.console = 后台监控日志已开启
+command.cbspy.off.console = 后台监控日志已关闭
+
+command.invalid_sender = 该命令仅限玩家或控制台使用
+command.cbspy.reload.success = &a配置已重新加载
+
+command.cbspy.query.recent = &a最近执行的命令( {limit} 条):
+command.cbspy.query.loc.msg = &a该位置记录:
+command.cbspy.query.loc.command = &7命令: &f{command}
+command.cbspy.query.loc.execution_count = &7执行次数: &f{executionCount}
+command.cbspy.query.loc.last_execution = &7最后执行时间: &f{lastExecution}
+command.cbspy.query.loc.not_found = &c没有找到该位置的记录
+
+command.cbspy.query.loc.invalid_format = &c{name} 坐标格式不正确。
+
+
+tp.hover_event = 点击传送到该命令方块
+
+command.cbspy.unknown = &c未知子命令或参数。
+
+commandblock.type.repeating = 循环
+commandblock.type.chain = 连锁
+commandblock.type.standard = 普通
+
+monitor.execution.player = &e[CBSpy] &6{type} &f| {location} &f| &7{command}
+monitor.execution.console = [执行] {type} | {world},{x},{y},{z} | {command}
+
+intercept.minecart.player = &c已拦截命令方块矿车: {location}
+intercept.minecart.console = [拦截] 命令方块矿车 | {world},{x},{y},{z}
+
+intercept.repeating.player = &c已拦截循环保持开启命令方块 {location}
+intercept.repeating.console = [拦截] 循环命令方块 | {world},{x},{y},{z} | {command}
+
+intercept.pattern.player = &c已拦截命令方块: &6{reason} &f位置: {location}
+intercept.pattern.console = [拦截] 正则表达式 | {reason} | {world},{x},{y},{z} | {command}

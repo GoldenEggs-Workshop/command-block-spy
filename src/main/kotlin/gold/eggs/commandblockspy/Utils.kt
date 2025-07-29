@@ -64,16 +64,16 @@ fun extractCommandBlockInfo(event: ServerCommandEvent): CommandBlockInfo? {
     val loc = block.location
 
     val type = when (block.type) {
-        Material.REPEATING_COMMAND_BLOCK -> "循环"
-        Material.CHAIN_COMMAND_BLOCK -> "连锁"
-        Material.COMMAND_BLOCK -> "普通"
-        else -> "未知"
+        Material.REPEATING_COMMAND_BLOCK -> I18nManager.get("commandblock.type.repeating")
+        Material.CHAIN_COMMAND_BLOCK -> I18nManager.get("commandblock.type.chain")
+        Material.COMMAND_BLOCK -> I18nManager.get("commandblock.type.standard")
+        else -> ""
     }
 
     val x = loc.blockX
     val y = loc.blockY
     val z = loc.blockZ
-    val worldName = loc.world?.name ?: "未知世界"
+    val worldName = loc.world?.name ?: ""
 
     return CommandBlockInfo(
         commandBlock, command, block, loc,

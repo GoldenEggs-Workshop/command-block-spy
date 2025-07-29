@@ -1,0 +1,45 @@
+plugin.started = Plugin started
+plugin.disabled = Plugin stopped
+
+prefix.cbspy.player = &e[CBSpy] {msg}
+prefix.cbspy.console = [CBSpy] {msg}
+
+location = &a{world}&f, &a{x}&f, &a{y}&f, &a{z}
+
+command.no_permission = &cYou do not have permission to use this command.
+command.cbspy.on.player = &aCommand block monitoring display enabled.
+command.cbspy.off.player = &cCommand block monitoring display disabled.
+command.cbspy.on.console = Background monitoring log enabled.
+command.cbspy.off.console = Background monitoring log disabled.
+
+command.invalid_sender = This command can only be used by players or the console.
+command.cbspy.reload.success = &aConfiguration reloaded successfully.
+
+command.cbspy.query.recent = &aRecent commands executed (limit {limit}):
+command.cbspy.query.loc.msg = &aRecords at this location:
+command.cbspy.query.loc.command = &7Command: &f{command}
+command.cbspy.query.loc.execution_count = &7Execution count: &f{executionCount}
+command.cbspy.query.loc.last_execution = &7Last executed: &f{lastExecution}
+command.cbspy.query.loc.not_found = &cNo records found at this location.
+
+command.cbspy.query.loc.invalid_format = &cInvalid coordinate format for {name}.
+
+tp.hover_event = Click to teleport to this command block.
+
+command.cbspy.unknown = &cUnknown subcommand or argument.
+
+commandblock.type.repeating = Repeating
+commandblock.type.chain = Chain
+commandblock.type.standard = Standard
+
+monitor.execution.player = &e[CBSpy] &6{type} &f| {location} &f| &7{command}
+monitor.execution.console = [Execution] {type} | {world},{x},{y},{z} | {command}
+
+intercept.minecart.player = &cIntercepted command block minecart at: {location}
+intercept.minecart.console = [Intercepted] Command block minecart | {world},{x},{y},{z}
+
+intercept.repeating.player = &cIntercepted a repeating command block kept active at {location}
+intercept.repeating.console = [Intercepted] Repeating command block | {world},{x},{y},{z} | {command}
+
+intercept.pattern.player = &cIntercepted command block: &6{reason} &fLocation: {location}
+intercept.pattern.console = [Intercepted] Regex pattern | {reason} | {world},{x},{y},{z} | {command}

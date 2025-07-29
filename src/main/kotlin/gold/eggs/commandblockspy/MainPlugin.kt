@@ -12,14 +12,14 @@ class MainPlugin : JavaPlugin() {
     override fun onEnable() {
         instance = this
 
-        // 日志
-        logger.info("插件已启动")
-
         // 初始化配置文件
         saveDefaultConfig()
         config.options().copyDefaults(true)
         saveConfig()
         ConfigManager.load(config)
+
+        // 初始化i18n
+        I18nManager.init(ConfigManager.language, this)
 
         // 初始化数据库
         DatabaseManager.init()
@@ -32,11 +32,14 @@ class MainPlugin : JavaPlugin() {
         command?.setExecutor(MonitorCommand())
         command?.tabCompleter = MonitorTabCompleter()
 
+        // 日志
+        logger.info(I18nManager.get("plugin.started"))
+
     }
 
     override fun onDisable() {
         // 插件关闭前清理
         DatabaseManager.close()
-        logger.info("插件已关闭")
+        logger.info(I18nManager.get("plugin.disabled"))
     }
 }

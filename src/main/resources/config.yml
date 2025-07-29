@@ -1,6 +1,10 @@
 # CBS插件配置文件
 # CBS Plugin Configuration
 
+# 插件语言，支持中文（zh_CN）和英文（en_US）
+# Plugin language, supports Chinese (zh_CN) and English (en_US)
+language: zh_CN
+
 # 是否启用数据库功能
 # Enable database logging
 database-logging-enabled: false
