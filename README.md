@@ -1,5 +1,10 @@
 # 🕵️‍♂️ CommandBlockSpy
 
+[简体中文](./README.md) | [English](./README_EN.md)
+
+[![Java Version](https://img.shields.io/badge/Java-17-blue.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+[![Minecraft Version](https://img.shields.io/badge/Minecraft-1.21.4-brightgreen.svg)](https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-4)
+[![Paper Version](https://img.shields.io/badge/Paper-1.21.4-blue.svg)](https://papermc.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Command Block Spy on Modrinth](https://img.shields.io/badge/Modrinth-Command%20Block%20Spy-brightgreen?logo=modrinth&logoColor=white)](https://modrinth.com/plugin/command-block-spy)
 [![GitHub - command-block-spy](https://img.shields.io/badge/GitHub-Repository-0969da?logo=github&logoColor=white)](https://github.com/GoldenEggs-Workshop/command-block-spy)
@@ -30,6 +35,8 @@
 | `/cbs query recent <count>`  | 查询最近执行的 `<count>` 条记录 | `cbspy.query`  |
 
 ## ⚙️ 配置文件示例
+
+> 注意: 所有功能默认 **关闭**，请根据需要自行开启。
 
 ```yaml
 # CBS插件配置文件
@@ -68,20 +75,20 @@ regex-block-list:
 
 ## 📦 构建 & 安装
 
-1. 克隆项目到本地：
+克隆项目到本地：
 
-   ```
+   ```bash
    git clone https://github.com/GoldenEggs-Workshop/command-block-spy
-   cd CommandBlockSpy
+   cd command-block-spy
    ```
 
-2. 构建插件：
+构建插件：
 
-   ```
+   ```bash
    ./gradlew build
    ```
 
-3. 将 `build/libs/commandblockspy-xxx.jar` 拷贝至服务器 `plugins/` 文件夹，重启服务器。
+将 `build/libs/commandblockspy-xxx.jar` 拷贝至服务器 `plugins/` 文件夹，重启服务器。
 
 ## 🔐 权限节点
 
