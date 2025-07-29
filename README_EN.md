@@ -122,7 +122,7 @@ Copy `build/libs/commandblockspy-xxx.jar` to your server's `plugins/` folder, th
 * [ ] Custom database configuration
 * [ ] Multi-platform notification integration (Feishu / DingTalk / Discord)
 * [ ] Visual query interface
-* [ ] i18n (internationalization) support
+* [x] i18n (internationalization) support
 
 
 ## 📄 **License**
