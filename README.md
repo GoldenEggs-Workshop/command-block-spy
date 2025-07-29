@@ -27,12 +27,12 @@
 
 ## 🧪 指令一览
 
-| 指令                           | 功能描述                  | 所需权限           |
-|------------------------------|-----------------------|----------------|
-| `/cbs`                       | 切换是否显示聊天监控提示          | `cbspy.use`    |
-| `/cbs reload`                | 重载插件配置                | `cbspy.reload` |
-| `/cbs query loc <x> <y> <z>` | 查询指定位置的历史执行记录         | `cbspy.query`  |
-| `/cbs query recent <count>`  | 查询最近执行的 `<count>` 条记录 | `cbspy.query`  |
+| 指令                             | 功能描述                  | 所需权限           |
+|--------------------------------|-----------------------|----------------|
+| `/cbspy`                       | 切换是否显示聊天监控提示          | `cbspy.use`    |
+| `/cbspy reload`                | 重载插件配置                | `cbspy.reload` |
+| `/cbspy query loc <x> <y> <z>` | 查询指定位置的历史执行记录         | `cbspy.query`  |
+| `/cbspy query recent <count>`  | 查询最近执行的 `<count>` 条记录 | `cbspy.query`  |
 
 ## ⚙️ 配置文件示例
 
