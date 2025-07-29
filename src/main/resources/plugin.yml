@@ -1,11 +1,10 @@
-name: CBS
+name: CBSpy
 main: gold.eggs.commandblockspy.MainPlugin
-version: v1.0.0-SNAPSHOT-1
+version: v1.0.0-SNAPSHOT-2
 api-version: 1.21
 commands:
   cbspy:
-    aliases: [cbs]
-    description: 切换命令方块监控功能
+    description: Command Block Spy Plugin
     usage: /cbspy
     permission: cbspy.use
 permissions:

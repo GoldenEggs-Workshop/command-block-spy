@@ -10,6 +10,7 @@ object ConfigManager {
     var banCommandMinecart = false
     var regexInterceptEnabled = false
     val regexBlockList = mutableMapOf<Regex, String>()
+    var language: String = "zh_CN"
 
     // 玩家个人监控状态（仅内存，重启失效）
     private val monitoringPlayers = mutableSetOf<UUID>()
@@ -23,6 +24,7 @@ object ConfigManager {
         interceptRepeatingAuto = config.getBoolean("intercept-repeating-auto", false)
         banCommandMinecart = config.getBoolean("ban-command-minecart", false)
         regexInterceptEnabled = config.getBoolean("regex-intercept-enabled", false)
+        language = config.getString("language", "zh_CN") ?: "zh_CN"
         regexBlockList.clear()
 
         // 加载正则拦截列表

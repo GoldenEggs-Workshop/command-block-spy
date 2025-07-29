@@ -21,28 +21,28 @@ class MonitorCommand : CommandExecutor {
     ): Boolean {
         if (args.isEmpty()) {
             if (!sender.hasPermission("cbspy.use")) {
-                sender.sendMessage("§c你没有权限使用此命令。")
+                sender.sendMessage(I18nManager.get("command.no_permission"))
                 return true
             }
 
             when (sender) {
                 is Player -> {
                     val enabled = ConfigManager.togglePlayerMonitoring(sender.uniqueId)
-                    val msg = if (enabled) "§a你已开启命令方块监控显示"
-                    else "§c你已关闭命令方块监控显示"
-                    sender.sendMessage("§e[CBSpy] $msg")
+                    val msg = if (enabled) I18nManager.get("command.cbspy.on.player")
+                    else I18nManager.get("command.cbspy.off.player")
+                    sender.sendMessage(I18nManager.get("prefix.cbspy.player", mapOf("msg" to msg)))
                 }
 
                 is ConsoleCommandSender -> {
                     ConfigManager.backendMonitorEnabled = !ConfigManager.backendMonitorEnabled
                     ConfigManager.save()
-                    val msg = if (ConfigManager.backendMonitorEnabled) "后台监控日志已开启"
-                    else "后台监控日志已关闭"
-                    sender.sendMessage("[CBSpy] $msg")
+                    val msg = if (ConfigManager.backendMonitorEnabled) I18nManager.get("command.cbspy.on.console")
+                    else I18nManager.get("command.cbspy.off.console")
+                    sender.sendMessage(I18nManager.get("prefix.cbspy.console", mapOf("msg" to msg)))
                 }
 
                 else -> {
-                    sender.sendMessage("§c该命令仅限玩家或控制台使用")
+                    sender.sendMessage(I18nManager.get("command.invalid_sender"))
                 }
             }
         }
@@ -51,14 +51,16 @@ class MonitorCommand : CommandExecutor {
             if (args[0].equals("reload", ignoreCase = true)) {
                 // 处理 /cbs reload 子命令
                 if (!sender.hasPermission("cbspy.reload")) {
-                    sender.sendMessage("§c你没有权限执行此操作。")
+                    sender.sendMessage(I18nManager.get("command.no_permission"))
                     return true
                 }
 
                 val plugin = MainPlugin.instance
                 plugin.reloadConfig()
                 ConfigManager.load(plugin.config)
-                sender.sendMessage("§e[CBSpy] §a配置已重新加载。")
+                I18nManager.init(ConfigManager.language, plugin)
+                val msg = I18nManager.get("command.cbspy.reload.success")
+                sender.sendMessage(I18nManager.get("prefix.cbspy.player", mapOf("msg" to msg)))
                 return true
             }
 
@@ -70,21 +72,22 @@ class MonitorCommand : CommandExecutor {
                     )
                 ) {
                     if (!sender.hasPermission("cbspy.query")) {
-                        sender.sendMessage("§c你没有权限执行此查询。")
+                        sender.sendMessage(I18nManager.get("command.no_permission"))
                         return true
                     }
 
                     val limit = args.getOrNull(2)?.toIntOrNull() ?: 5
                     val results = DatabaseManager.queryRecentExecutions(limit)
 
-                    sender.sendMessage("§e[CBSpy] §a最近执行的命令（$limit 条）：")
+                    val msg = I18nManager.get("command.cbspy.query.recent", mapOf("limit" to limit.toString()))
+                    sender.sendMessage(I18nManager.get("prefix.cbspy.player", mapOf("msg" to msg)))
                     for ((i, row) in results.withIndex()) {
                         sender.sendMessage(
                             Component.text("§7${i + 1}. §f${row.command} ")
                                 .append(
                                     Component.text("§7@ (${row.x},${row.y},${row.z})")
                                         .clickEvent(ClickEvent.runCommand("/tp @s ${row.x} ${row.y} ${row.z}"))
-                                        .hoverEvent(HoverEvent.showText(Component.text("点击传送到该命令方块")))
+                                        .hoverEvent(HoverEvent.showText(Component.text(I18nManager.get("tp.hover_event"))))
                                 )
                                 .append(Component.text(" §8${row.lastExecution}"))
                         )
@@ -99,7 +102,7 @@ class MonitorCommand : CommandExecutor {
                     )
                 ) {
                     if (!sender.hasPermission("cbspy.query")) {
-                        sender.sendMessage("§c你没有权限执行此查询。")
+                        sender.sendMessage(I18nManager.get("command.no_permission"))
                         return true
                     }
 
@@ -112,12 +115,14 @@ class MonitorCommand : CommandExecutor {
 
                     val record = DatabaseManager.queryByLocation(loc)
                     if (record != null) {
-                        sender.sendMessage("§e[CBSpy] §a该位置记录：")
-                        sender.sendMessage("§7命令：§f${record.command}")
-                        sender.sendMessage("§7执行次数：§f${record.executionCount}")
-                        sender.sendMessage("§7最后执行时间：§f${record.lastExecution}")
+                        val msg = I18nManager.get("command.cbspy.query.loc.msg")
+                        sender.sendMessage(I18nManager.get("prefix.cbspy.player", mapOf("msg" to msg)))
+                        sender.sendMessage(I18nManager.get("command.cbspy.query.loc.command", mapOf("command" to record.command)))
+                        sender.sendMessage(I18nManager.get("command.cbspy.query.loc.execution_count", mapOf("executionCount" to record.executionCount.toString())))
+                        sender.sendMessage(I18nManager.get("command.cbspy.query.loc.last_execution", mapOf("lastExecution" to record.lastExecution)))
                     } else {
-                        sender.sendMessage("§e[CBSpy] §c没有找到该位置的记录。")
+                        val msg= I18nManager.get("command.cbspy.query.loc.not_found")
+                        sender.sendMessage(I18nManager.get("prefix.cbspy.player", mapOf("msg" to msg)))
                     }
 
                     return true
@@ -125,7 +130,7 @@ class MonitorCommand : CommandExecutor {
             }
 
             // 处理未知子命令
-            sender.sendMessage("§c未知子命令或参数。")
+            sender.sendMessage(I18nManager.get("command.cbspy.unknown"))
 
         }
 
@@ -134,7 +139,7 @@ class MonitorCommand : CommandExecutor {
 
     fun parseIntArg(arg: String, name: String, sender: CommandSender): Int? {
         return arg.toIntOrNull() ?: run {
-            sender.sendMessage("§c$name 坐标格式不正确，请输入整数。")
+            sender.sendMessage(I18nManager.get("command.cbspy.query.loc.invalid_format", mapOf("name" to name)))
             null
         }
     }
