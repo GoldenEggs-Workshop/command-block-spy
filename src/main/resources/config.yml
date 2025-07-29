@@ -1,22 +1,30 @@
 # CBS插件配置文件
+# CBS Plugin Configuration
 
 # 是否启用数据库功能
+# Enable database logging
 database-logging-enabled: false
 
 # 是否开启后台命令执行日志监控，开启后控制台会打印命令方块执行记录
+# Enable backend monitoring (logs to console)
 backend-monitor-enabled: false
 
 # 是否拦截循环命令方块保持开启（auto=true）的命令，拦截后会自动设置为红石控制
+# Intercept always-on repeating command blocks (auto=true)
 intercept-repeating-auto: false
 
 # 是否禁止命令方块矿车，开启后玩家会无法放置命令方块矿车
+# Disable command block minecarts
 ban-command-minecart: false
 
 # 是否启用基于正则表达式的命令拦截功能，拦截匹配规则的指令并提示原因
+# Enable regex-based command interception
 regex-intercept-enabled: false
 
 # 正则表达式拦截列表，格式：正则表达式: 拦截提示信息
+# Regex interception list
 # 支持常见正则表达式语法，例如：
+# Format: regex pattern : block message
 regex-block-list:
   - pattern: ^say
-    message: 禁止使用 say 命令！
+    message: 禁止使用 say 命令！ # The 'say' command is not allowed!
