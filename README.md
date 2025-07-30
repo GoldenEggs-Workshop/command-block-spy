@@ -71,8 +71,8 @@ regex-intercept-enabled: false
 # 支持常见正则表达式语法，例如：
 # Format: regex pattern : block message
 regex-block-list:
-   - pattern: ^say
-     message: 禁止使用 say 命令！ # The 'say' command is not allowed!
+  - pattern: ^say
+    message: 禁止使用 say 命令！ # The 'say' command is not allowed!
 ```
 
 ## 🚀 快速安装
@@ -104,11 +104,12 @@ regex-block-list:
 
 ## 🔐 权限节点
 
-| 权限节点           | 功能描述     |
-|----------------|----------|
-| `cbspy.use`    | 切换聊天提醒   |
-| `cbspy.reload` | 重载插件配置   |
-| `cbspy.query`  | 查询记录相关功能 |
+| 权限节点          | 功能描述         |
+|-------------------|------------------|
+| `cbspy.use`       | 切换聊天提醒     |
+| `cbspy.reload`    | 重载插件配置     |
+| `cbspy.query`     | 查询记录相关功能 |
+| `cbspy.intercept` | 接收拦截消息     |
 
 ## 💡 TODO 计划
 

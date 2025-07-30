@@ -9,8 +9,10 @@ commands:
     permission: cbspy.use
 permissions:
   cbspy.use:
-    default: true
+    default: op
   cbspy.reload:
-    default: true
+    default: op
   cbspy.query:
-    default: true
+    default: op
+  cbspy.intercept:
+    default: op

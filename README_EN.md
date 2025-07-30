@@ -120,11 +120,12 @@ Copy `build/libs/commandblockspy-xxx.jar` to your server's `plugins/` folder, th
 
 ## 🔐 Permission Nodes
 
-| Permission Node | Description                 |
-|-----------------|-----------------------------|
-| `cbspy.use`     | Toggle chat alerts          |
-| `cbspy.reload`  | Reload plugin configuration |
-| `cbspy.query`   | Use query-related features  |
+| Permission Node   | Description                        |
+|-------------------|------------------------------------|
+| `cbspy.use`       | Toggle chat alerts                 |
+| `cbspy.reload`    | Reload plugin configuration        |
+| `cbspy.query`     | Use query-related features         |
+| `cbspy.intercept` | Receive interception notifications |
 
 
 

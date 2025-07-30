@@ -95,6 +95,7 @@ class CbSpyListener : Listener {
                 event.isCancelled = true
 
                 for (player in Bukkit.getOnlinePlayers()) {
+                    if (!player.hasPermission("cbspy.intercept")) continue
                     sendMessageWithLocation(player, "intercept.repeating.player", emptyMap(), info)
                 }
 
@@ -121,6 +122,7 @@ class CbSpyListener : Listener {
                     event.isCancelled = true
 
                     for (player in Bukkit.getOnlinePlayers()) {
+                        if (!player.hasPermission("cbspy.intercept")) continue
                         sendMessageWithLocation(
                             player,
                             "intercept.pattern.player",
@@ -159,6 +161,8 @@ class CbSpyListener : Listener {
                 mapOf("location" to "${entity.location.world.name}, ${entity.location.blockX}, ${entity.location.blockY}, ${entity.location.blockZ}")
             )
             for (player in Bukkit.getOnlinePlayers()) {
+                // 判断是否有权限
+                if (!player.hasPermission("cbspy.intercept")) continue
                 player.sendMessage(
                     Component.text(
                         I18nManager.get("prefix.cbspy.player", mapOf("msg" to msg))
