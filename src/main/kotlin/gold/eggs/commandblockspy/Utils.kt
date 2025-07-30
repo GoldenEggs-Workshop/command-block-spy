@@ -14,7 +14,7 @@ private fun BlockCommandSender.getCommandBlockEntity(): Any? {
         val sourceField = commandSourceStack.javaClass.getDeclaredField("source").apply { isAccessible = true }
         val source = sourceField.get(commandSourceStack)
 
-        val this0Field = source.javaClass.getDeclaredField("this\$0").apply { isAccessible = true }
+        val this0Field = source.javaClass.getDeclaredField("this$0").apply { isAccessible = true }
         this0Field.get(source)
     } catch (e: Exception) {
         e.printStackTrace()

@@ -2,6 +2,12 @@
   <dictionary name="project">
     <words>
       <w>cbspy</w>
+      <w>commandblock</w>
+      <w>commandblockspy</w>
+      <w>dists</w>
+      <w>feishu</w>
+      <w>foojay</w>
+      <w>modrinth</w>
     </words>
   </dictionary>
 </component>
